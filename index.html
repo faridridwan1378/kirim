@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Alamat Pengiriman</title>
+    <style>
+        /* Pengaturan Font dan Dasar Body */
+        body {
+            /* Menggunakan font sistem yang modern dan sangat mudah dibaca di berbagai perangkat */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* Kontainer Utama Form */
+        .address-form-container {
+            max-width: 500px; /* Lebar maksimal agar tidak terlalu lebar di desktop */
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Judul Form */
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #1a202c;
+        }
+
+        /* Grup untuk setiap Label dan Input */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Gaya untuk Label (misal: "Nama Penerima") */
+        .form-label {
+            display: block; /* Membuat label berada di baris sendiri di atas input */
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        /* Gaya untuk semua Kolom Isian (input, textarea) */
+        .form-input,
+        .form-textarea {
+            width: 100%; /* Memenuhi lebar kontainer */
+            padding: 12px 15px;
+            font-size: 16px; /* Ukuran font yang nyaman dibaca di mobile */
+            border: 1px solid #cbd5e0;
+            border-radius: 8px; /* Sudut yang sedikit membulat */
+            box-sizing: border-box; /* Mencegah padding mempengaruhi lebar total */
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        /* Memberi efek visual saat kolom isian dipilih */
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.3);
+        }
+        
+        /* Khusus untuk Textarea */
+        .form-textarea {
+            resize: vertical; /* Hanya izinkan resize vertikal */
+            min-height: 100px;
+        }
+
+        /* Tombol Aksi */
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #3182ce; /* Warna biru yang menonjol */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-button:hover {
+            background-color: #2b6cb0; /* Warna lebih gelap saat disentuh/di-hover */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="address-form-container">
+        <h1>Alamat Pengiriman</h1>
+
+        <form action="#" method="post">
+            <!-- Nama Penerima -->
+            <div class="form-group">
+                <label for="nama-penerima" class="form-label">Nama Penerima</label>
+                <input type="text" id="nama-penerima" name="nama_penerima" class="form-input" placeholder="Contoh: Budi Santoso" required>
+            </div>
+
+            <!-- Nomor Telepon -->
+            <div class="form-group">
+                <label for="telepon" class="form-label">Nomor Telepon</label>
+                <input type="tel" id="telepon" name="telepon" class="form-input" placeholder="Contoh: 081234567890" required>
+            </div>
+
+            <!-- Alamat Lengkap -->
+            <div class="form-group">
+                <label for="alamat" class="form-label">Alamat Lengkap</label>
+                <textarea id="alamat" name="alamat" class="form-textarea" placeholder="Tulis nama jalan, nomor rumah, RT/RW, dan patokan agar kurir mudah menemukan lokasimu." required></textarea>
+            </div>
+
+            <!-- Provinsi -->
+            <div class="form-group">
+                <label for="provinsi" class="form-label">Provinsi</label>
+                <input type="text" id="provinsi" name="provinsi" class="form-input" placeholder="Contoh: Jawa Barat" required>
+            </div>
+
+            <!-- Kota/Kabupaten -->
+            <div class="form-group">
+                <label for="kota" class="form-label">Kota/Kabupaten</label>
+                <input type="text" id="kota" name="kota" class="form-input" placeholder="Contoh: Kota Bandung" required>
+            </div>
+
+            <!-- Kecamatan -->
+            <div class="form-group">
+                <label for="kecamatan" class="form-label">Kecamatan</label>
+                <input type="text" id="kecamatan" name="kecamatan" class="form-input" placeholder="Contoh: Sukajadi" required>
+            </div>
+
+            <!-- Kode Pos -->
+            <div class="form-group">
+                <label for="kode-pos" class="form-label">Kode Pos</label>
+                <input type="text" id="kode-pos" name="kode_pos" class="form-input" pattern="[0-9]{5}" inputmode="numeric" placeholder="Contoh: 40162" required>
+            </div>
+
+            <!-- Tombol Simpan -->
+            <button type="submit" class="submit-button">Simpan Alamat</button>
+        </form>
+    </div>
+
+</body>
+</html>
