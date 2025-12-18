@@ -3,64 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Alamat Pengiriman</title>
+    <title>Sistem Alamat Pengiriman</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Pengaturan Font dan Dasar Body */
+        /* Reset dan Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            /* Menggunakan font sistem yang modern dan sangat mudah dibaca di berbagai perangkat */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
             background-color: #f4f7f9;
-            margin: 0;
-            padding: 20px;
             color: #333;
+            line-height: 1.6;
+            padding: 20px;
         }
-
-        /* Kontainer Utama Form */
-        .address-form-container {
-            max-width: 500px; /* Lebar maksimal agar tidak terlalu lebar di desktop */
+        
+        .container {
+            max-width: 900px;
             margin: 0 auto;
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e1e8ed;
+        }
+        
+        h1 {
+            font-size: 28px;
+            color: #1a202c;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #4a5568;
+            font-size: 16px;
+        }
+        
+        /* Tabs Navigation */
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            background: #f7fafc;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #3182ce;
+            border-bottom: 3px solid #3182ce;
+        }
+        
+        .tab:hover:not(.active) {
+            background: #edf2f7;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
-
-        /* Judul Form */
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-align: center;
-            color: #1a202c;
+        
+        .tab-content.active {
+            display: block;
         }
-
-        /* Grup untuk setiap Label dan Input */
+        
+        /* Form Styles */
         .form-group {
             margin-bottom: 20px;
         }
-
-        /* Gaya untuk Label (misal: "Nama Penerima") */
+        
         .form-label {
-            display: block; /* Membuat label berada di baris sendiri di atas input */
+            display: block;
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 8px;
             color: #4a5568;
         }
-
-        /* Gaya untuk semua Kolom Isian (input, textarea) */
+        
         .form-input,
         .form-textarea {
-            width: 100%; /* Memenuhi lebar kontainer */
+            width: 100%;
             padding: 12px 15px;
-            font-size: 16px; /* Ukuran font yang nyaman dibaca di mobile */
+            font-size: 16px;
             border: 1px solid #cbd5e0;
-            border-radius: 8px; /* Sudut yang sedikit membulat */
-            box-sizing: border-box; /* Mencegah padding mempengaruhi lebar total */
+            border-radius: 8px;
+            box-sizing: border-box;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         
-        /* Memberi efek visual saat kolom isian dipilih */
         .form-input:focus,
         .form-textarea:focus {
             outline: none;
@@ -68,84 +122,833 @@
             box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.3);
         }
         
-        /* Khusus untuk Textarea */
         .form-textarea {
-            resize: vertical; /* Hanya izinkan resize vertikal */
+            resize: vertical;
             min-height: 100px;
         }
-
-        /* Tombol Aksi */
-        .submit-button {
-            width: 100%;
-            padding: 15px;
+        
+        /* Button Styles */
+        .btn {
+            padding: 12px 24px;
             font-size: 16px;
-            font-weight: bold;
-            color: #ffffff;
-            background-color: #3182ce; /* Warna biru yang menonjol */
+            font-weight: 600;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-
-        .submit-button:hover {
-            background-color: #2b6cb0; /* Warna lebih gelap saat disentuh/di-hover */
+        
+        .btn-primary {
+            background-color: #3182ce;
+            color: white;
         }
-
+        
+        .btn-primary:hover {
+            background-color: #2b6cb0;
+        }
+        
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #cbd5e0;
+        }
+        
+        .btn-success {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #2f855a;
+        }
+        
+        .btn-danger {
+            background-color: #e53e3e;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c53030;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        /* Preview Styles */
+        .preview-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3182ce;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .preview-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a202c;
+        }
+        
+        .preview-date {
+            font-size: 14px;
+            color: #718096;
+        }
+        
+        .preview-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .preview-item {
+            margin-bottom: 10px;
+        }
+        
+        .preview-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .preview-value {
+            font-size: 16px;
+            color: #1a202c;
+            margin-top: 5px;
+            word-break: break-word;
+        }
+        
+        /* Data List Styles */
+        .data-list {
+            margin-top: 20px;
+        }
+        
+        .data-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .data-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .data-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .data-item-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a202c;
+        }
+        
+        .data-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .data-item-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+        
+        /* Modal untuk Print Preview */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a202c;
+        }
+        
+        /* Alert Message */
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .alert-error {
+            background-color: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .preview-content,
+            .data-item-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .data-item-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .data-item-actions {
+                align-self: flex-end;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            #print-preview-content, #print-preview-content * {
+                visibility: visible;
+            }
+            
+            #print-preview-content {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 20px;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <div class="address-form-container">
-        <h1>Alamat Pengiriman</h1>
-
-        <form action="#" method="post">
-            <!-- Nama Penerima -->
-            <div class="form-group">
-                <label for="nama-penerima" class="form-label">Nama Penerima</label>
-                <input type="text" id="nama-penerima" name="nama_penerima" class="form-input" placeholder="Contoh: Budi Santoso" required>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-truck"></i> Sistem Alamat Pengiriman</h1>
+            <p class="subtitle">Kelola dan simpan data alamat pengiriman dengan mudah</p>
+        </header>
+        
+        <!-- Alert Messages -->
+        <div id="alert-success" class="alert alert-success"></div>
+        <div id="alert-error" class="alert alert-error"></div>
+        
+        <!-- Tabs Navigation -->
+        <div class="tabs">
+            <button class="tab active" data-tab="form">Tambah Alamat</button>
+            <button class="tab" data-tab="preview">Preview</button>
+            <button class="tab" data-tab="data">Data Tersimpan</button>
+        </div>
+        
+        <!-- Form Tab -->
+        <div id="form" class="tab-content active">
+            <h2 style="margin-bottom: 20px;"><i class="fas fa-plus-circle"></i> Form Alamat Baru</h2>
+            
+            <form id="alamatForm">
+                <div class="form-group">
+                    <label for="nama-penerima" class="form-label">Nama Penerima *</label>
+                    <input type="text" id="nama-penerima" name="nama_penerima" class="form-input" placeholder="Contoh: Budi Santoso" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telepon" class="form-label">Nomor Telepon *</label>
+                    <input type="tel" id="telepon" name="telepon" class="form-input" placeholder="Contoh: 081234567890" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="alamat" class="form-label">Alamat Lengkap *</label>
+                    <textarea id="alamat" name="alamat" class="form-textarea" placeholder="Tulis nama jalan, nomor rumah, RT/RW, dan patokan agar kurir mudah menemukan lokasimu." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="provinsi" class="form-label">Provinsi *</label>
+                    <input type="text" id="provinsi" name="provinsi" class="form-input" placeholder="Contoh: Jawa Barat" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="kota" class="form-label">Kota/Kabupaten *</label>
+                    <input type="text" id="kota" name="kota" class="form-input" placeholder="Contoh: Kota Bandung" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="kecamatan" class="form-label">Kecamatan *</label>
+                    <input type="text" id="kecamatan" name="kecamatan" class="form-input" placeholder="Contoh: Sukajadi" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="kode-pos" class="form-label">Kode Pos *</label>
+                    <input type="text" id="kode-pos" name="kode_pos" class="form-input" pattern="[0-9]{5}" inputmode="numeric" placeholder="Contoh: 40162" required>
+                </div>
+                
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Simpan Alamat
+                    </button>
+                    <button type="button" id="previewBtn" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i> Preview Sebelum Simpan
+                    </button>
+                    <button type="reset" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Reset Form
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Preview Tab -->
+        <div id="preview" class="tab-content">
+            <h2 style="margin-bottom: 20px;"><i class="fas fa-eye"></i> Preview Alamat</h2>
+            
+            <div id="previewContainer">
+                <p class="preview-value" style="text-align: center; color: #718096; padding: 40px;">
+                    Belum ada data untuk dipreview. Silakan isi form atau pilih data dari tab "Data Tersimpan".
+                </p>
             </div>
-
-            <!-- Nomor Telepon -->
-            <div class="form-group">
-                <label for="telepon" class="form-label">Nomor Telepon</label>
-                <input type="tel" id="telepon" name="telepon" class="form-input" placeholder="Contoh: 081234567890" required>
+            
+            <div class="btn-group">
+                <button id="printPreviewBtn" class="btn btn-primary" disabled>
+                    <i class="fas fa-print"></i> Print Preview
+                </button>
+                <button id="backToFormBtn" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Form
+                </button>
             </div>
-
-            <!-- Alamat Lengkap -->
-            <div class="form-group">
-                <label for="alamat" class="form-label">Alamat Lengkap</label>
-                <textarea id="alamat" name="alamat" class="form-textarea" placeholder="Tulis nama jalan, nomor rumah, RT/RW, dan patokan agar kurir mudah menemukan lokasimu." required></textarea>
+        </div>
+        
+        <!-- Data Tab -->
+        <div id="data" class="tab-content">
+            <h2 style="margin-bottom: 20px;"><i class="fas fa-database"></i> Data Alamat Tersimpan</h2>
+            
+            <div id="dataContainer">
+                <p class="preview-value" style="text-align: center; color: #718096; padding: 40px;">
+                    Belum ada data yang tersimpan. Silakan tambahkan alamat melalui form.
+                </p>
             </div>
-
-            <!-- Provinsi -->
-            <div class="form-group">
-                <label for="provinsi" class="form-label">Provinsi</label>
-                <input type="text" id="provinsi" name="provinsi" class="form-input" placeholder="Contoh: Jawa Barat" required>
+            
+            <div class="btn-group">
+                <button id="refreshDataBtn" class="btn btn-secondary">
+                    <i class="fas fa-sync-alt"></i> Refresh Data
+                </button>
             </div>
-
-            <!-- Kota/Kabupaten -->
-            <div class="form-group">
-                <label for="kota" class="form-label">Kota/Kabupaten</label>
-                <input type="text" id="kota" name="kota" class="form-input" placeholder="Contoh: Kota Bandung" required>
-            </div>
-
-            <!-- Kecamatan -->
-            <div class="form-group">
-                <label for="kecamatan" class="form-label">Kecamatan</label>
-                <input type="text" id="kecamatan" name="kecamatan" class="form-input" placeholder="Contoh: Sukajadi" required>
-            </div>
-
-            <!-- Kode Pos -->
-            <div class="form-group">
-                <label for="kode-pos" class="form-label">Kode Pos</label>
-                <input type="text" id="kode-pos" name="kode_pos" class="form-input" pattern="[0-9]{5}" inputmode="numeric" placeholder="Contoh: 40162" required>
-            </div>
-
-            <!-- Tombol Simpan -->
-            <button type="submit" class="submit-button">Simpan Alamat</button>
-        </form>
+        </div>
     </div>
-
+    
+    <!-- Modal untuk Print Preview -->
+    <div id="printModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-print"></i> Print Preview</h3>
+                <button id="closeModalBtn" class="btn btn-secondary no-print">
+                    <i class="fas fa-times"></i> Tutup
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="print-preview-content">
+                    <!-- Konten print akan dimuat di sini -->
+                </div>
+                <div class="btn-group no-print" style="margin-top: 20px;">
+                    <button id="printBtn" class="btn btn-primary">
+                        <i class="fas fa-print"></i> Cetak
+                    </button>
+                    <button id="closePrintBtn" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Fungsi untuk menampilkan alert
+        function showAlert(type, message) {
+            const alertEl = document.getElementById(`alert-${type}`);
+            alertEl.textContent = message;
+            alertEl.style.display = 'block';
+            
+            // Sembunyikan alert setelah 5 detik
+            setTimeout(() => {
+                alertEl.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Fungsi untuk beralih antar tab
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Hapus kelas active dari semua tab dan konten
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Tambahkan kelas active ke tab yang diklik
+                tab.classList.add('active');
+                
+                // Tampilkan konten tab yang sesuai
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                
+                // Jika pindah ke tab data, muat ulang data
+                if (tabId === 'data') {
+                    loadData();
+                }
+            });
+        });
+        
+        // Fungsi untuk membuat preview dari data form
+        function createPreview(data) {
+            return `
+                <div class="preview-card">
+                    <div class="preview-header">
+                        <div class="preview-title">${data.nama_penerima}</div>
+                        <div class="preview-date">${new Date().toLocaleDateString('id-ID')}</div>
+                    </div>
+                    <div class="preview-content">
+                        <div class="preview-item">
+                            <div class="preview-label">Nama Penerima</div>
+                            <div class="preview-value">${data.nama_penerima || '-'}</div>
+                        </div>
+                        <div class="preview-item">
+                            <div class="preview-label">Telepon</div>
+                            <div class="preview-value">${data.telepon || '-'}</div>
+                        </div>
+                        <div class="preview-item">
+                            <div class="preview-label">Alamat Lengkap</div>
+                            <div class="preview-value">${data.alamat || '-'}</div>
+                        </div>
+                        <div class="preview-item">
+                            <div class="preview-label">Provinsi</div>
+                            <div class="preview-value">${data.provinsi || '-'}</div>
+                        </div>
+                        <div class="preview-item">
+                            <div class="preview-label">Kota/Kabupaten</div>
+                            <div class="preview-value">${data.kota || '-'}</div>
+                        </div>
+                        <div class="preview-item">
+                            <div class="preview-label">Kecamatan</div>
+                            <div class="preview-value">${data.kecamatan || '-'}</div>
+                        </div>
+                        <div class="preview-item">
+                            <div class="preview-label">Kode Pos</div>
+                            <div class="preview-value">${data.kode_pos || '-'}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Fungsi untuk membuat konten print
+        function createPrintContent(data) {
+            const now = new Date();
+            return `
+                <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
+                    <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 20px;">
+                        <h1 style="margin-bottom: 5px;">Alamat Pengiriman</h1>
+                        <p style="color: #666;">Dicetak pada: ${now.toLocaleDateString('id-ID')} ${now.toLocaleTimeString('id-ID')}</p>
+                    </div>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold; width: 30%;">Nama Penerima</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">${data.nama_penerima || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">Telepon</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">${data.telepon || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">Alamat Lengkap</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">${data.alamat || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">Provinsi</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">${data.provinsi || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">Kota/Kabupaten</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">${data.kota || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">Kecamatan</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">${data.kecamatan || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;">Kode Pos</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">${data.kode_pos || '-'}</td>
+                        </tr>
+                    </table>
+                    
+                    <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #333; text-align: center;">
+                        <p style="font-size: 12px; color: #666;">Dokumen ini dicetak dari Sistem Alamat Pengiriman</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Fungsi untuk memuat data dari server
+        async function loadData() {
+            try {
+                const response = await fetch('/api/alamat');
+                const result = await response.json();
+                
+                const container = document.getElementById('dataContainer');
+                
+                if (result.success && result.data.length > 0) {
+                    container.innerHTML = '';
+                    
+                    result.data.sort((a, b) => b.id - a.id).forEach(item => {
+                        const dataItem = document.createElement('div');
+                        dataItem.className = 'data-item';
+                        dataItem.innerHTML = `
+                            <div class="data-item-header">
+                                <div class="data-item-name">${item.nama_penerima}</div>
+                                <div class="data-item-actions">
+                                    <button class="btn btn-secondary btn-sm" onclick="viewData(${item.id})">
+                                        <i class="fas fa-eye"></i> Lihat
+                                    </button>
+                                    <button class="btn btn-primary btn-sm" onclick="printData(${item.id})">
+                                        <i class="fas fa-print"></i> Print
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteData(${item.id})">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="data-item-content">
+                                <div>
+                                    <strong>Telepon:</strong> ${item.telepon}
+                                </div>
+                                <div>
+                                    <strong>Kota:</strong> ${item.kota}
+                                </div>
+                                <div>
+                                    <strong>Tanggal:</strong> ${new Date(item.timestamp).toLocaleDateString('id-ID')}
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(dataItem);
+                    });
+                } else {
+                    container.innerHTML = `
+                        <p class="preview-value" style="text-align: center; color: #718096; padding: 40px;">
+                            Belum ada data yang tersimpan. Silakan tambahkan alamat melalui form.
+                        </p>
+                    `;
+                }
+            } catch (error) {
+                showAlert('error', 'Gagal memuat data: ' + error.message);
+            }
+        }
+        
+        // Fungsi untuk melihat data di tab preview
+        async function viewData(id) {
+            try {
+                const response = await fetch(`/api/alamat/${id}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const previewContainer = document.getElementById('previewContainer');
+                    previewContainer.innerHTML = createPreview(result.data);
+                    
+                    // Aktifkan tombol print preview
+                    document.getElementById('printPreviewBtn').disabled = false;
+                    document.getElementById('printPreviewBtn').dataset.id = id;
+                    
+                    // Pindah ke tab preview
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    document.querySelector('[data-tab="preview"]').classList.add('active');
+                    document.getElementById('preview').classList.add('active');
+                }
+            } catch (error) {
+                showAlert('error', 'Gagal memuat data: ' + error.message);
+            }
+        }
+        
+        // Fungsi untuk print data
+        async function printData(id) {
+            try {
+                const response = await fetch(`/api/alamat/${id}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const printContent = createPrintContent(result.data);
+                    const printWindow = window.open('', '_blank');
+                    printWindow.document.write(`
+                        <html>
+                            <head>
+                                <title>Cetak Alamat Pengiriman</title>
+                                <style>
+                                    body { font-family: Arial, sans-serif; margin: 20px; }
+                                    @media print {
+                                        @page { margin: 0.5in; }
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                ${printContent}
+                                <script>
+                                    window.onload = function() {
+                                        window.print();
+                                        setTimeout(function() {
+                                            window.close();
+                                        }, 500);
+                                    };
+                                <\/script>
+                            </body>
+                        </html>
+                    `);
+                    printWindow.document.close();
+                }
+            } catch (error) {
+                showAlert('error', 'Gagal mencetak: ' + error.message);
+            }
+        }
+        
+        // Fungsi untuk menghapus data
+        async function deleteData(id) {
+            if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                try {
+                    const response = await fetch(`/api/alamat/${id}`, {
+                        method: 'DELETE'
+                    });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showAlert('success', 'Data berhasil dihapus');
+                        loadData(); // Muat ulang data
+                    } else {
+                        showAlert('error', result.message);
+                    }
+                } catch (error) {
+                    showAlert('error', 'Gagal menghapus data: ' + error.message);
+                }
+            }
+        }
+        
+        // Event Listeners
+        document.getElementById('alamatForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Kumpulkan data form
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                // Kirim data ke server
+                const response = await fetch('/api/simpan-alamat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert('success', 'Alamat berhasil disimpan!');
+                    this.reset(); // Reset form
+                    
+                    // Tampilkan preview data yang baru disimpan
+                    const previewContainer = document.getElementById('previewContainer');
+                    previewContainer.innerHTML = createPreview(result.data);
+                    
+                    // Aktifkan tombol print preview
+                    document.getElementById('printPreviewBtn').disabled = false;
+                    document.getElementById('printPreviewBtn').dataset.id = result.data.id;
+                    
+                    // Pindah ke tab preview
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    document.querySelector('[data-tab="preview"]').classList.add('active');
+                    document.getElementById('preview').classList.add('active');
+                    
+                    // Muat ulang data di tab data
+                    loadData();
+                } else {
+                    showAlert('error', result.message);
+                }
+            } catch (error) {
+                showAlert('error', 'Gagal menyimpan data: ' + error.message);
+            }
+        });
+        
+        // Tombol preview sebelum simpan
+        document.getElementById('previewBtn').addEventListener('click', function() {
+            const formData = new FormData(document.getElementById('alamatForm'));
+            const data = Object.fromEntries(formData);
+            
+            // Validasi minimal data
+            if (!data.nama_penerima || !data.telepon) {
+                showAlert('error', 'Harap isi minimal nama penerima dan nomor telepon');
+                return;
+            }
+            
+            const previewContainer = document.getElementById('previewContainer');
+            previewContainer.innerHTML = createPreview(data);
+            
+            // Nonaktifkan tombol print preview (karena belum disimpan)
+            document.getElementById('printPreviewBtn').disabled = true;
+            
+            // Pindah ke tab preview
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelector('[data-tab="preview"]').classList.add('active');
+            document.getElementById('preview').classList.add('active');
+        });
+        
+        // Tombol print preview
+        document.getElementById('printPreviewBtn').addEventListener('click', async function() {
+            const id = this.dataset.id;
+            
+            if (!id) {
+                // Jika belum disimpan, ambil data dari form
+                const formData = new FormData(document.getElementById('alamatForm'));
+                const data = Object.fromEntries(formData);
+                
+                // Validasi
+                if (!data.nama_penerima || !data.telepon) {
+                    showAlert('error', 'Harap isi minimal nama penerima dan nomor telepon');
+                    return;
+                }
+                
+                // Tampilkan modal print preview
+                document.getElementById('print-preview-content').innerHTML = createPrintContent(data);
+                document.getElementById('printModal').style.display = 'flex';
+                document.getElementById('printBtn').onclick = function() {
+                    window.print();
+                };
+            } else {
+                // Jika sudah disimpan, ambil data dari server
+                try {
+                    const response = await fetch(`/api/alamat/${id}`);
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Tampilkan modal print preview
+                        document.getElementById('print-preview-content').innerHTML = createPrintContent(result.data);
+                        document.getElementById('printModal').style.display = 'flex';
+                        document.getElementById('printBtn').onclick = function() {
+                            window.print();
+                        };
+                    }
+                } catch (error) {
+                    showAlert('error', 'Gagal memuat data untuk print: ' + error.message);
+                }
+            }
+        });
+        
+        // Tombol kembali ke form
+        document.getElementById('backToFormBtn').addEventListener('click', function() {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelector('[data-tab="form"]').classList.add('active');
+            document.getElementById('form').classList.add('active');
+        });
+        
+        // Tombol refresh data
+        document.getElementById('refreshDataBtn').addEventListener('click', loadData);
+        
+        // Tombol tutup modal
+        document.getElementById('closeModalBtn').addEventListener('click', function() {
+            document.getElementById('printModal').style.display = 'none';
+        });
+        
+        document.getElementById('closePrintBtn').addEventListener('click', function() {
+            document.getElementById('printModal').style.display = 'none';
+        });
+        
+        // Tutup modal dengan klik di luar konten
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('printModal');
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Muat data saat halaman pertama kali dimuat
+        document.addEventListener('DOMContentLoaded', loadData);
+        
+        // Ekspos fungsi ke global scope untuk digunakan di onclick
+        window.viewData = viewData;
+        window.printData = printData;
+        window.deleteData = deleteData;
+    </script>
 </body>
 </html>
